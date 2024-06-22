@@ -7,6 +7,7 @@ const versionBuild = 1;
 export default {
   name: "Check List App",
   slug: "check-list-app",
+  scheme: "check-list-app",
   version: version || "1.0.0",
   orientation: "portrait",
   icon: "./assets/images/icon.png",

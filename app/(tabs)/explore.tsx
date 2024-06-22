@@ -1,5 +1,6 @@
+import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { StyleSheet, Image, Platform } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 
 import { Collapsible } from "@/components/Collapsible";
 import { ExternalLink } from "@/components/ExternalLink";
@@ -58,8 +59,8 @@ export default function TabTwoScreen() {
       <Collapsible title="Light and dark mode components">
         <ThemedText>
           This template has light and dark mode support. The{" "}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect what the user's current
-          color scheme is, and so you can adjust UI colors accordingly.
+          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect what the user`&apos;`s
+          current color scheme is, and so you can adjust UI colors accordingly.
         </ThemedText>
         <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
           <ThemedText type="link">Learn more</ThemedText>
