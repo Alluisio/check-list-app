@@ -4,10 +4,10 @@ import Header from "@/components/Header";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-export default function HomeScreen() {
+export default function MyListScreen() {
   return (
     <>
-      <Header title="Home" />
+      <Header title="Minhas Listas" />
 
       <ThemedView lightColor="red">
         <ThemedText>Allou</ThemedText>
