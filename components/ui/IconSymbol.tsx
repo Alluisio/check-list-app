@@ -21,6 +21,8 @@ const MAPPING = {
   "chevron.left": "chevron-left",
   "list.bullet": "format-list-bulleted",
   "info.circle": "info-outline",
+  magnifyingglass: "search",
+  cross: "add",
 } as IconMapping;
 
 /**

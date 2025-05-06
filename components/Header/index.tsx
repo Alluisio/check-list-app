@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   title: {
     textTransform: "uppercase",
     fontFamily: Colors.light.fontFamily,
+    fontSize: 20,
   },
   backIcon: {
     paddingRight: 4,

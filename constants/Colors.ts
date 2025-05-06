@@ -5,7 +5,7 @@ const primaryColor = "#857DB1";
 const primaryDarkColor = "#3C3666";
 const dangerColor = "#E3242B";
 const confirmColor = "#3DED97";
-const primaryTextColor = "#5D656B";
+const darkTextColor = "#DCDCDC";
 const fontFamily = "OpenSans";
 
 interface Theme {
@@ -17,6 +17,11 @@ interface Theme {
   icon: string;
   tabIconDefault: string;
   tabIconSelected: string;
+
+  primaryTextColor: string;
+  secondaryTextColor: string;
+
+  borderColor: string;
 }
 
 interface AvailableThemes {
@@ -34,6 +39,9 @@ export const Colors: AvailableThemes = {
     icon: "#687076",
     tabIconDefault: "#687076",
     tabIconSelected: tintColorLight,
+    primaryTextColor: "#5D656B",
+    secondaryTextColor: "#697386",
+    borderColor: "#E3E8EE",
   },
   dark: {
     fontFamily: fontFamily,
@@ -44,5 +52,8 @@ export const Colors: AvailableThemes = {
     icon: "#9BA1A6",
     tabIconDefault: "#9BA1A6",
     tabIconSelected: tintColorDark,
+    primaryTextColor: darkTextColor,
+    secondaryTextColor: darkTextColor,
+    borderColor: "#3E4042",
   },
 };

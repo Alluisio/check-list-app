@@ -24,6 +24,9 @@ export default function TabLayout() {
           },
           default: {},
         }),
+        sceneStyle: {
+          backgroundColor: Colors[colorScheme ?? "light"].background,
+        },
       }}
     >
       <Tabs.Screen
