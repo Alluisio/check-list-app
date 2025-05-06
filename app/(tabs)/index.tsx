@@ -1,13 +1,19 @@
 import { StyleSheet } from "react-native";
 
+import Header from "@/components/Header";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
 export default function HomeScreen() {
   return (
-    <ThemedView lightColor="red">
-      <ThemedText>Allou</ThemedText>
-    </ThemedView>
+    <>
+      <Header title="Home" />
+
+      <ThemedView lightColor="red">
+        <ThemedText>Allou</ThemedText>
+      </ThemedView>
+    </>
+
     // <ParallaxScrollView
     //   headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
     //   headerImage={<Image source={require("@/assets/images/partial-react-logo.png")} style={styles.reactLogo} />}
