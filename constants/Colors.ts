@@ -22,6 +22,10 @@ interface Theme {
   secondaryTextColor: string;
 
   borderColor: string;
+
+  cardItemBackground: string;
+  dangerColor: string;
+  confirmColor: string;
 }
 
 interface AvailableThemes {
@@ -42,6 +46,9 @@ export const Colors: AvailableThemes = {
     primaryTextColor: "#5D656B",
     secondaryTextColor: "#697386",
     borderColor: "#E3E8EE",
+    cardItemBackground: "#F3F3F3",
+    dangerColor,
+    confirmColor,
   },
   dark: {
     fontFamily: fontFamily,
@@ -55,5 +62,8 @@ export const Colors: AvailableThemes = {
     primaryTextColor: darkTextColor,
     secondaryTextColor: darkTextColor,
     borderColor: "#3E4042",
+    cardItemBackground: "#202020",
+    dangerColor,
+    confirmColor,
   },
 };

@@ -30,7 +30,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="(list)"
         options={{
           title: "MINHAS LISTAS",
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="list.bullet" color={color} />,

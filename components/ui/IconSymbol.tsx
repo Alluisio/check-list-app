@@ -23,6 +23,8 @@ const MAPPING = {
   "info.circle": "info-outline",
   magnifyingglass: "search",
   cross: "add",
+  "point.3.connected.trianglepath.dotted": "more-vert",
+  trash: "delete",
 } as IconMapping;
 
 /**

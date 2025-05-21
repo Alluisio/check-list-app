@@ -25,11 +25,14 @@ const Header: React.FC<Props> = ({ title, showBackButton }) => {
     <SafeAreaInsetsContext.Consumer>
       {(insets) => (
         <ThemedView
-          style={{
-            ...styles.container,
-            paddingTop: insets?.top || 0,
-            backgroundColor: colorScheme === "dark" ? Colors.dark.headerBackground : Colors.light.headerBackground,
-          }}
+          style={[
+            styles.container,
+            {
+              paddingLeft: showBackButton ? 12 : BORDER_RADIUS_HORIZONTAL,
+              paddingTop: insets?.top || 0,
+              backgroundColor: colorScheme === "dark" ? Colors.dark.headerBackground : Colors.light.headerBackground,
+            },
+          ]}
         >
           {showBackButton && (
             <TouchableOpacity onPress={handleBackPress}>
@@ -38,11 +41,13 @@ const Header: React.FC<Props> = ({ title, showBackButton }) => {
           )}
 
           <Text
-            style={{
-              ...styles.title,
-              color: colorScheme === "dark" ? Colors.dark.headerColor : Colors.light.headerColor,
-              fontWeight: colorScheme === "dark" ? 700 : 400,
-            }}
+            style={[
+              styles.title,
+              {
+                color: colorScheme === "dark" ? Colors.dark.headerColor : Colors.light.headerColor,
+                fontWeight: colorScheme === "dark" ? 700 : 400,
+              },
+            ]}
           >
             {title}
           </Text>
