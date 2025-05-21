@@ -9,7 +9,7 @@ const MyListPage: React.FC = () => {
 
   return (
     <ThemedView style={{ flex: 1 }}>
-      <Header title="Listagem XXXXXXX" showBackButton />
+      <Header title="Lista XXXXXXX" showBackButton />
       <ThemedText>This is id: {id}</ThemedText>
     </ThemedView>
   );

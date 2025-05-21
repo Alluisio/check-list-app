@@ -8,13 +8,14 @@ import { IconSymbol } from "./ui/IconSymbol";
 interface Props {
   label: string;
   icon?: string;
+  onPress?: () => void;
 }
 
-const ThemedTouchableButton: React.FC<Props> = ({ label, icon }) => {
+const ThemedTouchableButton: React.FC<Props> = ({ label, onPress }) => {
   const colorScheme = useColorScheme();
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <ThemedView
         style={{
           ...styles.container,

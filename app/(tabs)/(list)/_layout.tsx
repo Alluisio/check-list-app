@@ -18,6 +18,7 @@ const ListLayout: React.FC = () => {
     >
       <Stack.Screen name="list" />
       <Stack.Screen name="[id]" />
+      <Stack.Screen name="new" />
     </Stack>
   );
 };

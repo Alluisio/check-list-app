@@ -6,8 +6,12 @@ import ThemedTextInput from "@/components/ThemedTextInput";
 import ThemedTouchableButton from "@/components/ThemedTouchableButton";
 import { ThemedView } from "@/components/ThemedView";
 import { useRouter } from "expo-router";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+import EmptyList from "@/components/EmptyList";
+import { setupDatabase } from "@/lib/db";
+import { deleteList, getAllLists } from "@/lib/storage";
 
 const CARD_ITEM_HEIGHT = 60;
 
@@ -21,18 +25,35 @@ const MyListPage: React.FC = () => {
   const router = useRouter();
   const [search, setSearch] = useState<string>("");
 
+  const [dados, setDados] = useState<MyList[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      await setupDatabase();
+      await loadList();
+    })();
+  }, []);
+
+  async function loadList() {
+    try {
+      const data = await getAllLists();
+
+      setDados(data);
+    } catch (e) {
+      console.error("Erro ao carregar itens:", e);
+    }
+  }
+
   const handleChangeSearch = useCallback((text: string) => {
     setSearch(text);
   }, []);
 
-  const [dados, setDados] = useState<MyList[]>([
-    { id: "1", title: "Item 1", total: 5 },
-    { id: "2", title: "Item 2", total: 5 },
-    { id: "3", title: "Item 3", total: 1 },
-  ]);
-
   const handleDelete = (id: string) => {
-    setDados((prev) => prev.filter((item) => item.id !== id));
+    new Promise(async (resolve) => {
+      resolve(await deleteList(id));
+    }).then(() => {
+      loadList();
+    });
   };
 
   const handleOpenItem = (id: string) => {
@@ -49,6 +70,10 @@ const MyListPage: React.FC = () => {
     []
   );
 
+  const handleNewListPress = () => {
+    router.push("/new");
+  };
+
   return (
     <GestureHandlerRootView>
       <Header title="Minhas Listas" />
@@ -56,7 +81,7 @@ const MyListPage: React.FC = () => {
       <ThemedView style={styles.content}>
         <ThemedView style={styles.filterNewButtonView}>
           <ThemedTextInput value={search} onChangeText={handleChangeSearch} placeholder="Procurar lista" />
-          <ThemedTouchableButton label="Nova lista" />
+          <ThemedTouchableButton label="Nova lista" onPress={handleNewListPress} />
         </ThemedView>
 
         <FlatList
@@ -72,6 +97,7 @@ const MyListPage: React.FC = () => {
             offset: CARD_ITEM_HEIGHT * index,
             index,
           })}
+          ListEmptyComponent={EmptyList}
         />
       </ThemedView>
     </GestureHandlerRootView>
