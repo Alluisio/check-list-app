@@ -1,31 +1,38 @@
 import { Colors } from "@/constants/Colors";
 import React from "react";
-import { StyleSheet, TextInput, TextInputProps, useColorScheme } from "react-native";
+import { StyleSheet, TextInput, TextInputProps, useColorScheme, ViewStyle } from "react-native";
 import { ThemedView } from "./ThemedView";
 import { IconSymbol } from "./ui/IconSymbol";
 
 interface Props extends TextInputProps {
-  icon?: string;
+  containerStyle?: ViewStyle;
+  showSearchIcon?: boolean;
 }
 
-const ThemedTextInput: React.FC<Props> = ({ icon, ...rest }) => {
+const ThemedTextInput: React.FC<Props> = ({ showSearchIcon, containerStyle, ...rest }) => {
   const colorScheme = useColorScheme();
 
   return (
     <ThemedView
-      style={{
-        ...styles.container,
-        borderColor: Colors[colorScheme ?? "light"].borderColor,
-      }}
+      style={[
+        styles.container,
+        {
+          borderColor: Colors[colorScheme ?? "light"].borderColor,
+          ...containerStyle,
+        },
+      ]}
     >
-      <IconSymbol name="magnifyingglass" color={Colors[colorScheme ?? "light"].secondaryTextColor} size={18} />
+      {showSearchIcon && (
+        <IconSymbol name="magnifyingglass" color={Colors[colorScheme ?? "light"].secondaryTextColor} size={18} />
+      )}
+
       <TextInput
-        {...rest}
         style={{
           ...styles.inputText,
           color: Colors[colorScheme ?? "light"].secondaryTextColor,
         }}
         placeholderTextColor={Colors[colorScheme ?? "light"].secondaryTextColor}
+        {...rest}
       ></TextInput>
     </ThemedView>
   );
@@ -34,7 +41,6 @@ const ThemedTextInput: React.FC<Props> = ({ icon, ...rest }) => {
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    flex: 1,
     borderRadius: 8,
 
     flexDirection: "row",

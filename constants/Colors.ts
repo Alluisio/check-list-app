@@ -26,6 +26,8 @@ interface Theme {
   cardItemBackground: string;
   dangerColor: string;
   confirmColor: string;
+  primaryColor: string;
+  primaryDarkColor: string;
 }
 
 interface AvailableThemes {
@@ -49,6 +51,8 @@ export const Colors: AvailableThemes = {
     cardItemBackground: "#F3F3F3",
     dangerColor,
     confirmColor,
+    primaryColor,
+    primaryDarkColor,
   },
   dark: {
     fontFamily: fontFamily,
@@ -65,5 +69,7 @@ export const Colors: AvailableThemes = {
     cardItemBackground: "#202020",
     dangerColor,
     confirmColor,
+    primaryColor,
+    primaryDarkColor,
   },
 };

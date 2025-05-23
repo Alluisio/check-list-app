@@ -10,7 +10,6 @@ import { useCallback, useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import EmptyList from "@/components/EmptyList";
-import { setupDatabase } from "@/lib/db";
 import { deleteList, getAllLists } from "@/lib/storage";
 
 const CARD_ITEM_HEIGHT = 60;
@@ -29,8 +28,15 @@ const MyListPage: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      await setupDatabase();
-      await loadList();
+      // await setupDatabase();
+      // await loadList();
+      setDados([
+        {
+          id: "1",
+          title: "fake list",
+          total: 5,
+        },
+      ]);
     })();
   }, []);
 
@@ -80,7 +86,14 @@ const MyListPage: React.FC = () => {
 
       <ThemedView style={styles.content}>
         <ThemedView style={styles.filterNewButtonView}>
-          <ThemedTextInput value={search} onChangeText={handleChangeSearch} placeholder="Procurar lista" />
+          <ThemedTextInput
+            showSearchIcon
+            containerStyle={{ flex: 1 }}
+            style={styles.filterInput}
+            value={search}
+            onChangeText={handleChangeSearch}
+            placeholder="Procurar lista"
+          />
           <ThemedTouchableButton label="Nova lista" onPress={handleNewListPress} />
         </ThemedView>
 
@@ -119,5 +132,8 @@ const styles = StyleSheet.create({
     gap: 12,
 
     marginBottom: 18,
+  },
+  filterInput: {
+    flex: 1,
   },
 });
