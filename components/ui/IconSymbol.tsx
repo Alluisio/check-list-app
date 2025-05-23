@@ -25,6 +25,8 @@ const MAPPING = {
   cross: "add",
   "point.3.connected.trianglepath.dotted": "more-vert",
   trash: "delete",
+  escape: "close",
+  checkmark: "check",
 } as IconMapping;
 
 /**

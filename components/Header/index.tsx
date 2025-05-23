@@ -1,19 +1,32 @@
 import { Colors } from "@/constants/Colors";
 import { useNavigation } from "expo-router";
 import React, { useCallback } from "react";
-import { StyleSheet, Text, TouchableOpacity, useColorScheme } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, useColorScheme, View } from "react-native";
 import { SafeAreaInsetsContext } from "react-native-safe-area-context";
 import { ThemedView } from "../ThemedView";
 import { IconSymbol } from "../ui/IconSymbol";
 
-interface Props {
+interface InEditMode extends Props {
+  editMode: true;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
+interface NormalMode extends Props {
+  editMode?: false;
+  onConfirm?: never;
+  onCancel?: never;
+}
+
+type Props = {
   title: string;
   showBackButton?: boolean;
-}
+  editMode?: boolean;
+};
 
 const BORDER_RADIUS_HORIZONTAL = 24;
 
-const Header: React.FC<Props> = ({ title, showBackButton }) => {
+const Header: React.FC<InEditMode | NormalMode> = ({ title, showBackButton, editMode, onCancel, onConfirm }) => {
   const colorScheme = useColorScheme();
   const navigate = useNavigation();
 
@@ -51,6 +64,21 @@ const Header: React.FC<Props> = ({ title, showBackButton }) => {
           >
             {title}
           </Text>
+
+          {editMode && (
+            <View style={{ flexDirection: "row", marginLeft: "auto", gap: 12, marginRight: 16 }}>
+              <TouchableOpacity onPress={onCancel}>
+                <IconSymbol style={{ fontSize: 28 }} color={Colors[colorScheme ?? "dark"].dangerColor} name="escape" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={onConfirm}>
+                <IconSymbol
+                  style={{ fontSize: 28 }}
+                  color={Colors[colorScheme ?? "dark"].confirmColor}
+                  name="checkmark"
+                />
+              </TouchableOpacity>
+            </View>
+          )}
         </ThemedView>
       )}
     </SafeAreaInsetsContext.Consumer>
