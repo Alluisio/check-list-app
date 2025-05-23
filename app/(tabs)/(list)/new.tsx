@@ -5,7 +5,10 @@ import ThemedTextInput from "@/components/ThemedTextInput";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
-import React, { useState } from "react";
+import { setupDatabase } from "@/lib/db";
+import { createList } from "@/lib/storage";
+import { router } from "expo-router";
+import React, { useEffect, useState } from "react";
 import { Dimensions, FlatList, StyleSheet, TouchableOpacity, useColorScheme } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { v4 } from "uuid";
@@ -37,9 +40,43 @@ const NewListScreen: React.FC = () => {
     setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
+  const handleSave = async () => {
+    console.log("save here");
+
+    await createList(
+      titleList,
+      items.map((i) => {
+        return {
+          ...i,
+          price: Number(i.price),
+          quantity: Number(i.quantity),
+        };
+      })
+    )
+      .then(() => {
+        router.back();
+      })
+      .catch((err) => {
+        console.log("Houve um erro irmão", err);
+      })
+      .finally(() => {
+        console.log("pos save");
+      });
+  };
+
+  const handleCancel = () => {
+    router.back();
+  };
+
+  useEffect(() => {
+    (async () => {
+      await setupDatabase();
+    })();
+  }, []);
+
   return (
     <GestureHandlerRootView>
-      <Header title="NOVA LISTA" showBackButton />
+      <Header title="NOVA LISTA" showBackButton editMode onConfirm={handleSave} onCancel={handleCancel} />
 
       <ThemedView style={{ flex: 1, paddingHorizontal: 20 }}>
         <ThemedTextInput placeholder="Titulo da lista" value={titleList} onChangeText={(text) => setTitleList(text)} />

@@ -10,7 +10,9 @@ import { useCallback, useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import EmptyList from "@/components/EmptyList";
+import { setupDatabase } from "@/lib/db";
 import { deleteList, getAllLists } from "@/lib/storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 const CARD_ITEM_HEIGHT = 60;
 
@@ -28,17 +30,16 @@ const MyListPage: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      // await setupDatabase();
-      // await loadList();
-      setDados([
-        {
-          id: "1",
-          title: "fake list",
-          total: 5,
-        },
-      ]);
+      await setupDatabase();
+      await loadList();
     })();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadList();
+    }, [])
+  );
 
   async function loadList() {
     try {
