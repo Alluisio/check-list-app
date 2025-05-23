@@ -14,30 +14,32 @@ export async function deleteList(id: string): Promise<void> {
 
 export async function createList(title: string, itens: Partial<ShoppingItem>[]) {
   const listId = v4();
-  const validated = ShoppingListSchema.parse({
+  const validatedList = ShoppingListSchema.parse({
     id: listId,
     title,
     total: itens.length,
   });
 
-  await db.runAsync("INSERT INTO shopping_list (id, title, total) VALUES (?, ?, ?)", [
-    validated.id,
-    validated.title,
-    validated.total,
-  ]);
-
-  for (const item of itens) {
-    const itemValidted = ShoppingItemSchema.parse({
-      ...item,
-      id: v4(),
-    });
-
-    await db.runAsync("INSERT INTO shopping_item (id, name, price, quantity, listId) VALUES (?, ?, ?, ?, ?)", [
-      itemValidted.id,
-      itemValidted.name,
-      itemValidted.price,
-      itemValidted.quantity,
-      listId,
+  await db.withExclusiveTransactionAsync(async (tx) => {
+    await tx.runAsync("INSERT INTO shopping_list (id, title, total) VALUES (?, ?, ?)", [
+      validatedList.id,
+      validatedList.title,
+      validatedList.total,
     ]);
-  }
+
+    for (const item of itens) {
+      const itemValidated = ShoppingItemSchema.parse({
+        ...item,
+        id: v4(),
+      });
+
+      await tx.runAsync("INSERT INTO shopping_item (id, name, price, quantity, listId) VALUES (?, ?, ?, ?, ?)", [
+        itemValidated.id,
+        itemValidated.name,
+        itemValidated.price,
+        itemValidated.quantity,
+        listId,
+      ]);
+    }
+  });
 }

@@ -7,11 +7,14 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
 import { setupDatabase } from "@/lib/db";
 import { createList } from "@/lib/storage";
+import { formatZodErrors } from "@/utils/zodFormatErrors";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Dimensions, FlatList, StyleSheet, TouchableOpacity, useColorScheme } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Toast from "react-native-toast-message";
 import { v4 } from "uuid";
+import { z } from "zod";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -57,7 +60,23 @@ const NewListScreen: React.FC = () => {
         router.back();
       })
       .catch((err) => {
-        console.log("Houve um erro irmão", err);
+        if (err instanceof z.ZodError) {
+          const errors = formatZodErrors(err);
+          const errorsArray = Object.values(errors);
+
+          Toast.show({
+            type: "error",
+            text1: "Não foi possível criar a lista!",
+            text2: errorsArray.join("\n"),
+          });
+        } else {
+          Toast.show({
+            type: "error",
+            text1: "Não foi possível criar a lista!",
+            text2: "Não houve tratamento para este erro",
+          });
+          console.log("Houve um erro irmão", err);
+        }
       })
       .finally(() => {
         console.log("pos save");

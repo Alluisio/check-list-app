@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import "react-native-get-random-values";
 import "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -20,14 +21,17 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider>
-    </SafeAreaProvider>
+    <>
+      <SafeAreaProvider>
+        <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </SafeAreaProvider>
+      <Toast />
+    </>
   );
 }
